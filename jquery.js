@@ -8,7 +8,7 @@ var step;
 
 var action;
 
-var fruits = ['apple', 'banana', 'cherries', 'grapes', 'mango', 'orange', 'peach', 'pear', 'watermelon'];
+var fruits = ['apple', 'banana', 'cherries', 'grapes', 'mango', 'orange', 'peach', 'pear'];
 
 var highScore = Number(localStorage.getItem('highScore')) || 0;
 var paused = false;
