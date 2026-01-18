@@ -10,7 +10,12 @@ var action;
 
 var fruits = ['apple', 'banana', 'cherries', 'grapes', 'mango', 'orange', 'peach', 'pear', 'watermelon'];
 
+var highScore = Number(localStorage.getItem('highScore')) || 0;
+var paused = false;
+
 $(function () {
+    // initialize high score display
+    $("#highscorevalue").html(highScore);
     $("#startreset").click(function () {
         if (playing == true) {
             location.reload();
@@ -23,6 +28,22 @@ $(function () {
             addhearts();
             $("#startreset").html("Reset Game");
             startAction();
+        }
+    });
+
+    // pause/resume control
+    $("#pausebtn").click(function () {
+        if (!playing) {
+            return;
+        }
+        if (!paused) {
+            paused = true;
+            clearInterval(action);
+            $("#pausebtn").html("Resume");
+        } else {
+            paused = false;
+            $("#pausebtn").html("Pause");
+            createActionLoop();
         }
     });
 
@@ -49,14 +70,23 @@ $(function () {
         }
     }
 
+    function computeStep() {
+        return 1 + Math.round(5 * Math.random()) + Math.floor(score / 10);
+    }
+
     function startAction() {
         $("#fruit1").show();
         choosefruit();
         $("#fruit1").css({
             'left': Math.round(550 * Math.random()),
             'top': -50
-        })
-        step = 1 + Math.round(5 * Math.random());
+        });
+        step = computeStep();
+        createActionLoop();
+    }
+
+    function createActionLoop() {
+        clearInterval(action);
         action = setInterval(function () {
             $("#fruit1").css('top', $("#fruit1").position().top + step);
             if ($("#fruit1").position().top > $("#fruitscontainer").height()) {
@@ -67,7 +97,7 @@ $(function () {
                         'left': Math.round(550 * Math.random()),
                         'top': -50
                     });
-                    step = 1 + Math.round(5 * Math.random());
+                    step = computeStep();
                     lives--;
                     addhearts();
                     //hide game over box
@@ -78,6 +108,12 @@ $(function () {
                     $("#gameover").show();
                     $("#gameover").html('<p>Game Over!</p><p>Your score is ' + score + '</p>');
                     $("#trialsleft").hide();
+                    // update high score if beaten
+                    if (score > highScore) {
+                        highScore = score;
+                        localStorage.setItem('highScore', highScore);
+                        $("#highscorevalue").html(highScore);
+                    }
                     stopAction();
                 }
             }
