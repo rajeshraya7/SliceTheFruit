@@ -89,6 +89,10 @@ html {
     -moz-box-shadow: 0px 4px #8153a8;
 }
 
+.knife_cursor {
+    cursor: url('images/knife.png') 0 0, pointer; /* 4 and 12 are optional x and y coordinates for the click hotspot */
+}
+
 #choices {
     height: 100px;
     width: 450px;
