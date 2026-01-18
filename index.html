@@ -11,11 +11,32 @@
 
 <body>
     <div id="container">
-        <div id="score">
-            Score: <span id="scorevalue">0</span>
+        <div id="difficulty-selector">
+            <label>Difficulty:</label>
+            <select id="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium" selected>Medium</option>
+                <option value="hard">Hard</option>
+            </select>
         </div>
 
-        <div id="trialsleft">
+        <div id="header-row">
+            <div id="score">
+                Score: <span id="scorevalue">0</span>
+            </div>
+
+            <div id="combo-display">
+                Combo: <span id="combovalue">0</span>x
+            </div>
+
+            <div id="powerup-display">
+                Active: <span id="powerupinfo">None</span>
+            </div>
+
+            <div id="trialsleft">
+            </div>
+
+            <button id="pauseresume">Pause</button>
         </div>
 
         <div id="correct">
@@ -28,21 +49,65 @@
 
         <div id="fruitscontainer">
             <img id="fruit1" class="fruit">
+            <div id="particle-container"></div>
         </div>
 
         <div id="instruction">
             Catch Fruits
         </div>
 
-        <div id="startreset">
-            Start Game
+        <div id="controls">
+            <div id="startreset">
+                Start Game
+            </div>
+            <button id="show-leaderboard">High Scores</button>
         </div>
 
         <div id="gameover"></div>
+
+        <div id="pause-overlay" class="overlay">
+            <div class="overlay-content">
+                <h2>PAUSED</h2>
+                <p>Click anywhere to resume</p>
+            </div>
+        </div>
+
+        <div id="leaderboard-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>High Scores</h2>
+                <table id="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Score</th>
+                            <th>Difficulty</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                    </tbody>
+                </table>
+                <button id="clear-scores">Clear Scores</button>
+            </div>
+        </div>
+
         <audio id="slicingsound">
             <source src="audio/slicefruit.mp3">
             </source>
             <source src="audio/slicefruit.ogg">
+            </source>
+        </audio>
+        <audio id="bombsound">
+            <source src="audio/bomb.mp3">
+            </source>
+        </audio>
+        <audio id="powerupsound">
+            <source src="audio/powerup.mp3">
+            </source>
+        </audio>
+        <audio id="combosound">
+            <source src="audio/combo.mp3">
             </source>
         </audio>
 
